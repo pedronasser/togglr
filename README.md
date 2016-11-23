@@ -77,3 +77,11 @@ Example
 ```sh
 togglr invoice --detailed --client "Client Company" --projects "mycoolproject,othercoolproject"
 ```
+
+# What's next
+
+- Sending invoices to email
+- Update timer description
+- Better timer/project management
+- Rate per project
+- Better summary 
