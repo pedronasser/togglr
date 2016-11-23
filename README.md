@@ -35,6 +35,24 @@ Is a good practice to define an alias for each project, so you don't need to kno
 togglr projects alias 98172389127 mycoolproject
 ```
 
+## Configurations
+
+Some important configurations:
+
+```sh
+togglr config name "Your Name"
+```
+
+```sh
+#                HOUR RATE
+togglr config rate 100
+```
+
+```sh
+#                 PREFERRED CURRENCY
+togglr config currency USD
+```
+
 ## Control your timers
 
 ### Starting your timer
