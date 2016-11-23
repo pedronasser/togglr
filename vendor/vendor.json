@@ -1,0 +1,43 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "CBKlGMQySqioszixX8lcsbfOapg=",
+			"path": "github.com/jason0x43/go-toggl",
+			"revision": "e266f238f165ed210763f6a053c3df801fbe6edc",
+			"revisionTime": "2016-07-09T18:25:38Z"
+		},
+		{
+			"checksumSHA1": "AMjHZaynjqQ8pzRPA1a6IBFZ1LI=",
+			"path": "github.com/jinzhu/now",
+			"revision": "d9861969c7a7e84746d341c09020c2ef8a617f8f",
+			"revisionTime": "2016-06-12T09:26:03Z"
+		},
+		{
+			"checksumSHA1": "nqp6XVq+E2hGI/IHcMrSYGcrvJw=",
+			"path": "github.com/urfave/cli",
+			"revision": "f614c177b70c0f0e92c368d623c8770bf337c5d6",
+			"revisionTime": "2016-10-26T04:54:02Z"
+		},
+		{
+			"checksumSHA1": "9C4Av3ypK5pi173F76ogJT/d8x4=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "9477e0b78b9ac3d0b03822fd95422e2fe07627cd",
+			"revisionTime": "2016-10-31T15:37:30Z"
+		},
+		{
+			"checksumSHA1": "8fD/im5Kwvy3JgmxulDTambmE8w=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "a646d33e2ee3172a661fc09bca23bb4889a41bc8",
+			"revisionTime": "2016-07-15T05:43:45Z"
+		},
+		{
+			"checksumSHA1": "12GqsW8PiRPnezDDy0v4brZrndM=",
+			"path": "gopkg.in/yaml.v2",
+			"revision": "a5b47d31c556af34a302ce5d659e6fea44d90de0",
+			"revisionTime": "2016-09-28T15:37:09Z"
+		}
+	],
+	"rootPath": "github.com/pedronasser/togglr"
+}
