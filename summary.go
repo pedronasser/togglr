@@ -26,7 +26,13 @@ func runSummary(c *cli.Context) error {
 		return err
 	}
 
-	report, err := session.GetSummaryReport(cfg.Workspace, now.BeginningOfWeek().Format(queryDateFormat), now.EndOfWeek().Format(queryDateFormat))
+	report, err := session.GetSummaryReport(cfg.Workspace, time.Now().Format(queryDateFormat), time.Now().Format(queryDateFormat))
+	if err != nil {
+		return fmt.Errorf("Failed to load account summary: %s", err)
+	}
+	today := time.Duration(report.TotalGrand) * time.Millisecond
+
+	report, err = session.GetSummaryReport(cfg.Workspace, now.BeginningOfWeek().Format(queryDateFormat), now.EndOfWeek().Format(queryDateFormat))
 	if err != nil {
 		return fmt.Errorf("Failed to load account summary: %s", err)
 	}
@@ -40,6 +46,7 @@ func runSummary(c *cli.Context) error {
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 8, 1, '\t', 0)
 	fmt.Fprint(w, "PERIOD", "\t", "HOURS", "\t", "INVOICE", "\n")
+	fmt.Fprint(w, fmt.Sprintf("%s\t%.2f\t%.2f %s\n", "Today", today.Hours(), today.Hours()*cfg.Rate, cfg.Currency))
 	fmt.Fprint(w, fmt.Sprintf("%s\t%.2f\t%.2f %s\n", "Week", week.Hours(), week.Hours()*cfg.Rate, cfg.Currency))
 	fmt.Fprint(w, fmt.Sprintf("%s\t%.2f\t%.2f %s\n", "Month", month.Hours(), month.Hours()*cfg.Rate, cfg.Currency))
 	w.Flush()

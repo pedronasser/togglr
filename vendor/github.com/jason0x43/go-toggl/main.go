@@ -230,6 +230,22 @@ func (session *Session) StartTimeEntryForProject(description string, projectID i
 	return timeEntryRequest(respData, err)
 }
 
+// CreateTimeEntry creates a new time entry for a specific project.
+func (session *Session) CreateTimeEntry(start, end time.Time, description string, projectID int) (TimeEntry, error) {
+	data := map[string]interface{}{
+		"time_entry": map[string]interface{}{
+			"created_with": AppName,
+			"description":  description,
+			"pid":          projectID,
+			"start":        start.Format(time.RFC3339Nano),
+			"end":          end.Format(time.RFC3339Nano),
+			"duration":     int(end.Sub(start).Seconds()),
+		},
+	}
+	respData, err := session.post(TogglAPI, "/time_entries", data)
+	return timeEntryRequest(respData, err)
+}
+
 func (session *Session) GetCurrentTimeEntry() (TimeEntry, error) {
 	respData, err := session.get(TogglAPI, "/time_entries/current", nil)
 	return timeEntryRequest(respData, err)

@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "gkRIq2AsG0e/ngNfqW+IF/zr9o8=",
+			"path": "github.com/fatih/color",
+			"revision": "87d4004f2ab62d0d255e0a38f1680aa534549fe3",
+			"revisionTime": "2016-06-10T11:06:02Z"
+		},
+		{
 			"checksumSHA1": "CBKlGMQySqioszixX8lcsbfOapg=",
 			"path": "github.com/jason0x43/go-toggl",
 			"revision": "e266f238f165ed210763f6a053c3df801fbe6edc",
@@ -13,6 +19,30 @@
 			"path": "github.com/jinzhu/now",
 			"revision": "d9861969c7a7e84746d341c09020c2ef8a617f8f",
 			"revisionTime": "2016-06-12T09:26:03Z"
+		},
+		{
+			"checksumSHA1": "I4njd26dG5hxFT2nawuByM4pxzY=",
+			"path": "github.com/mattn/go-colorable",
+			"revision": "d228849504861217f796da67fae4f6e347643f15",
+			"revisionTime": "2016-11-03T16:00:40Z"
+		},
+		{
+			"checksumSHA1": "xZuhljnmBysJPta/lMyYmJdujCg=",
+			"path": "github.com/mattn/go-isatty",
+			"revision": "66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8",
+			"revisionTime": "2016-08-06T12:27:52Z"
+		},
+		{
+			"checksumSHA1": "yf185lmVPcvXjLZuPT1s4JzxI18=",
+			"path": "github.com/mattn/go-runewidth",
+			"revision": "737072b4e32b7a5018b4a7125da8d12de90e8045",
+			"revisionTime": "2016-10-12T01:35:12Z"
+		},
+		{
+			"checksumSHA1": "pp9r8ODGlSFKzCk1US6vI9kE95Q=",
+			"path": "github.com/nsf/termbox-go",
+			"revision": "0b413bfa31e8c6843db20dce4454566b1951709e",
+			"revisionTime": "2016-11-24T20:22:38Z"
 		},
 		{
 			"checksumSHA1": "nqp6XVq+E2hGI/IHcMrSYGcrvJw=",

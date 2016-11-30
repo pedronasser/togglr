@@ -4,12 +4,15 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/jason0x43/go-toggl"
 	"github.com/urfave/cli"
 )
 
 func main() {
+	toggl.AppName = "Togglr"
+
 	app := cli.NewApp()
-	app.Version = "0.0.1"
+	app.Version = "0.1.0"
 	app.Name = "togglr"
 	app.Usage = "a tool for toggl"
 	app.Authors = []cli.Author{{Name: "Pedro Nasser"}}
