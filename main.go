@@ -12,7 +12,7 @@ func main() {
 	toggl.AppName = "Togglr"
 
 	app := cli.NewApp()
-	app.Version = "0.1.0"
+	app.Version = "0.1.1"
 	app.Name = "togglr"
 	app.Usage = "a tool for toggl"
 	app.Authors = []cli.Author{{Name: "Pedro Nasser"}}

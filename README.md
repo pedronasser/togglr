@@ -16,6 +16,16 @@ Now that you have installed `togglr` in your system, login to your Toggl account
 togglr login
 ```
 
+Make sure you have projects defined in your Toggl account.
+
+Now let's start your timer.
+
+```sh
+togglr start
+```
+
+## Some information
+
 Now that you are logged, check your projects.
 
 ```sh
@@ -26,13 +36,6 @@ Checking your account summary
 
 ```sh
 togglr summary
-```
-
-Is a good practice to define an alias for each project, so you don't need to know their ID everytime.
-
-```sh
-#                     PROJECT ID     ALIAS
-togglr projects alias 98172389127 mycoolproject
 ```
 
 ## Configurations
@@ -51,6 +54,15 @@ togglr config rate 100
 ```sh
 #                 PREFERRED CURRENCY
 togglr config currency USD
+```
+
+## Project aliases
+
+Is a good practice to define an alias for each project, so you don't need to know their ID everytime.
+
+```sh
+#                     PROJECT ID     ALIAS
+togglr projects alias 98172389127 mycoolproject
 ```
 
 ## Control your timers

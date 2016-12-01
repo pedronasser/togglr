@@ -20,8 +20,8 @@ import (
 func start() cli.Command {
 	return cli.Command{
 		Name:      "start",
-		Usage:     "start a timer",
-		ArgsUsage: `project_id ["description"]`,
+		Usage:     "start or resume timer",
+		ArgsUsage: `[project_id] [description]`,
 		Action:    startTimer,
 	}
 }
@@ -61,12 +61,24 @@ func startContinuousTimer(c *cli.Context) error {
 		return err
 	}
 
+	start := time.Now()
+
+	entry, err := session.GetCurrentTimeEntry()
+	if err != nil || entry.Start == nil {
+		fmt.Println("Starting new time entry...")
+		entry, err = session.StartTimeEntry("")
+		if err != nil {
+			return fmt.Errorf("Failed to start time entry: %v", err)
+		}
+	} else {
+		fmt.Println("Resuming current time entry...")
+		start = *entry.Start
+	}
+
 	err = termbox.Init()
 	if err != nil {
 		panic(err)
 	}
-
-	start := time.Now()
 
 	event_queue := make(chan termbox.Event)
 	go func() {
@@ -140,9 +152,19 @@ loop:
 
 	pid := projs[pindex-1].ID
 
-	_, err = session.CreateTimeEntry(start, time.Now(), strings.TrimSuffix(description, "\n"), pid)
+	end := time.Now()
+
+	_, err = session.UpdateTimeEntry(toggl.TimeEntry{
+		Wid:         entry.Wid,
+		ID:          entry.ID,
+		Pid:         pid,
+		Start:       &start,
+		Stop:        &end,
+		Duration:    int64(end.Sub(start).Seconds()),
+		Description: strings.TrimSuffix(description, "\n"),
+	})
 	if err != nil {
-		return fmt.Errorf("Failed to send time entry: %v", err)
+		return fmt.Errorf("Failed to save time entry: %v", err)
 	}
 
 	fmt.Println("Time entry saved.")
