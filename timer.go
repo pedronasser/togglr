@@ -64,7 +64,11 @@ func startContinuousTimer(c *cli.Context) error {
 	start := time.Now()
 
 	entry, err := session.GetCurrentTimeEntry()
-	if err != nil || entry.Start == nil {
+	if err != nil {
+		return fmt.Errorf("Failed to check for existing time entries: %v", err)
+	}
+
+	if entry.Start == nil {
 		fmt.Println("Starting new time entry...")
 		entry, err = session.StartTimeEntry("")
 		if err != nil {
@@ -107,7 +111,7 @@ loop:
 		printCenter(4, fmt.Sprintf("%s %.2f", cfg.Currency, d.Hours()*cfg.Rate), termbox.ColorWhite, termbox.ColorDefault)
 		printCenter(6, "(Press ESC to stop)", termbox.ColorMagenta, termbox.ColorDefault)
 		termbox.Flush()
-		time.Sleep(time.Millisecond)
+		time.Sleep(500 * time.Millisecond)
 	}
 
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
@@ -121,6 +125,7 @@ loop:
 	fmt.Printf("From %s to %s.\n", yellow(start.Format(time.Stamp)), yellow(time.Now().Format(time.Stamp)))
 	fmt.Println("\nLet's add some info for that time entry before we send it.")
 
+getproject:
 	var projs []toggl.Project
 	for {
 		projs, err = session.GetProjects()
@@ -132,18 +137,49 @@ loop:
 		fmt.Println("Retrying...")
 	}
 
+	fmt.Println(red("0. Discard time"))
 	for i, proj := range projs {
-		fmt.Printf("%d. %s \n", i+1, proj.Name)
+		fmt.Printf("%s\n", yellow(fmt.Sprintf("%d. %s", i+1, proj.Name)))
 	}
 	fmt.Printf("Please select project number: ")
+	var pindex int64 = -1
+	for pindex == -1 {
 
-	var pindex int64
-	for pindex == 0 {
 		proj, _ := reader.ReadString('\n')
 		pindex, err = strconv.ParseInt(strings.TrimSuffix(proj, "\n"), 10, 64)
-		if err == nil && pindex > 0 && int(pindex) <= len(projs) {
+		if err == nil && pindex >= 1 && int(pindex) <= len(projs) {
 			break
 		}
+
+		if err == nil && pindex == 0 {
+			var confirm string
+			for {
+				fmt.Printf("Are you sure you want to discard that amount of time? [y/N] ")
+				confirm, _ = reader.ReadString('\n')
+				confirm = strings.TrimSuffix(confirm, "\n")
+				if confirm == "" {
+					confirm = "N"
+				}
+				if confirm == "y" || confirm == "N" {
+					break
+				}
+			}
+			if confirm == "y" {
+				_, err = session.DeleteTimeEntry(toggl.TimeEntry{
+					Wid: entry.Wid,
+					ID:  entry.ID,
+				})
+				if err != nil {
+					return fmt.Errorf("Failed to discard time entry: %v", err)
+				}
+				fmt.Println("Time entry discarded.")
+
+				return nil
+			}
+			pindex = -1
+			goto getproject
+		}
+
 		fmt.Printf("Invalid project, please select valid project from the list.\n Please select a project number: ")
 	}
 
